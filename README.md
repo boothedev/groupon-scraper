@@ -12,13 +12,13 @@ Automated browser script that searches for AMD ThinkPads on Lenovo.com, filters 
 1. Install dependencies:
 
 ```bash
-   pip install -r requirements.txt
+pip install -r requirements.txt
 ```
 
 2. Install Playwright browsers:
 
 ```bash
-   playwright install chromium
+playwright install chromium
 ```
 
 ## Usage
