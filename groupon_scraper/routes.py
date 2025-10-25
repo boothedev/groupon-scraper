@@ -11,6 +11,7 @@ import logging
 from enum import Enum
 import os
 
+from fastapi.responses import PlainTextResponse
 from playwright.async_api import TimeoutError as PlaywrightTimeoutError
 
 from .playwright_manager import get_browser, get_playwright, get_semaphore
@@ -86,7 +87,7 @@ async def search(
                 logger.debug("Failed to close context cleanly")
 
 
-@router.get("/")
+@router.get("/", response_class=PlainTextResponse)
 async def home():
     return (
         "Welcome to the Groupon Scraper API!\n"
