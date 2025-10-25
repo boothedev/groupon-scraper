@@ -9,13 +9,9 @@ This repository focuses on:
 - Reliability: bounded concurrency, graceful startup/shutdown, clear logging
 - Deployment readiness notes and reproducible environment entry points
 
+Try now with [groupon-scraper.fly.dev](https://groupon-scraper.fly.dev/)
+
 ## Quick overview
-
-## Design notes
-
-- Single browser instance: the app starts Playwright and launches one shared browser at startup and stops it on shutdown.
-- Bounded concurrency: an `asyncio.BoundedSemaphore` prevents resource exhaustion when many clients call the API concurrently.
-- Robustness: startup/shutdown code logs and resets globals on errors. Endpoint captures Playwright timeouts and general exceptions and maps them to appropriate HTTP statuses.
 
 ### Search endpoint usage
 
@@ -131,7 +127,7 @@ uvicorn groupon_scraper:app --host 0.0.0.0 --port 8000 --log-level info
 GET http://127.0.0.1:8000/search?query=laptop&price_max=500&sort_option=rating
 ```
 
-## Deployment readiness
+## Deployment
 
 - Use a process manager (systemd, supervisor) or containerize. When containerizing, ensure Playwright dependencies and browsers are installed in the image.
 - Example: use the official Python base image and run `playwright install --with-deps` as part of your Dockerfile.
@@ -161,3 +157,9 @@ docker run --rm -p 8000:8000 --name groupon-scraper groupon-scraper:latest
 ## Healthchecks and container readiness
 
 The provided `Dockerfile` exposes port `8000` and includes a `HEALTHCHECK` that queries `/health`. This helps platforms like Fly to detect readiness.
+
+## Design notes
+
+- Single browser instance: the app starts Playwright and launches one shared browser at startup and stops it on shutdown.
+- Bounded concurrency: an `asyncio.BoundedSemaphore` prevents resource exhaustion when many clients call the API concurrently.
+- Robustness: startup/shutdown code logs and resets globals on errors. Endpoint captures Playwright timeouts and general exceptions and maps them to appropriate HTTP statuses.
