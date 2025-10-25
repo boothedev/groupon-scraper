@@ -1,4 +1,4 @@
-# Playwright Scraper (FastAPI)
+# Groupon Scraper (Playwright + FastAPI)
 
 Lightweight Playwright-backed scraper exposing a small HTTP API to search Groupon and return a brief summary of the first matching deal.
 
