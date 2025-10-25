@@ -88,10 +88,10 @@ async def search(
 
 @router.get("/")
 async def home():
-    return {
-        "message": "Welcome to the Groupon Scraper API!\n"
+    return (
+        "Welcome to the Groupon Scraper API!\n"
         "Please use the /search endpoint to perform searches."
-    }
+    )
 
 
 @router.get("/health")
