@@ -131,7 +131,12 @@ uvicorn groupon_scraper:app --host 0.0.0.0 --port 8000 --log-level info
 GET http://127.0.0.1:8000/search?query=laptop&price_max=500&sort_option=rating
 ```
 
-## Environment variables
+## Deployment readiness
+
+- Use a process manager (systemd, supervisor) or containerize. When containerizing, ensure Playwright dependencies and browsers are installed in the image.
+- Example: use the official Python base image and run `playwright install --with-deps` as part of your Dockerfile.
+
+### Environment variables
 
 - `MAX_CONCURRENT_PAGES` (default: `4`) - maximum concurrent pages the app will open.
 - `PLAYWRIGHT_HEADLESS` (default: `1`) - `1` runs Chromium headless, `0` runs headed for debugging.
@@ -140,15 +145,6 @@ GET http://127.0.0.1:8000/search?query=laptop&price_max=500&sort_option=rating
 - `LOG_LEVEL` (default: `info`) - application log level.
 
 An example `.env` with sensible defaults is included in the repository as `.env.example`.
-
-## Healthchecks and container readiness
-
-The provided `Dockerfile` exposes port `8000` and includes a `HEALTHCHECK` that queries `/health`. This helps platforms like Fly to detect readiness.
-
-## Deployment readiness
-
-- Use a process manager (systemd, supervisor) or containerize. When containerizing, ensure Playwright dependencies and browsers are installed in the image.
-- Example: use the official Python base image and run `playwright install --with-deps` as part of your Dockerfile.
 
 ### Docker (example)
 
@@ -161,3 +157,7 @@ docker build -t groupon-scraper:latest .
 # run (bind to port 8000)
 docker run --rm -p 8000:8000 --name groupon-scraper groupon-scraper:latest
 ```
+
+## Healthchecks and container readiness
+
+The provided `Dockerfile` exposes port `8000` and includes a `HEALTHCHECK` that queries `/health`. This helps platforms like Fly to detect readiness.
