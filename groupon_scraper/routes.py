@@ -86,6 +86,14 @@ async def search(
                 logger.debug("Failed to close context cleanly")
 
 
+@router.get("/")
+async def home():
+    return {
+        "message": "Welcome to the Groupon Scraper API!\n"
+        "Please use the /search endpoint to perform searches."
+    }
+
+
 @router.get("/health")
 async def health():
     """Lightweight health endpoint that does not start Playwright.
