@@ -9,8 +9,6 @@ This repository focuses on:
 - Reliability: bounded concurrency, graceful startup/shutdown, clear logging
 - Deployment readiness notes and reproducible environment entry points
 
-Try now with **[groupon-scraper.fly.dev](https://groupon-scraper.fly.dev/)**!
-
 ## Quick overview
 
 ### Search endpoint usage
